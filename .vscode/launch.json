@@ -1,0 +1,35 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Ansibug: Launch ansible-playbook Process",
+            "type": "ansible",
+            "request": "launch",
+            "playbook": "${command:PickAnsiblePlaybook}"
+        },
+        {
+            "name": "Ansibug: Attach to local ansible-playbook Process",
+            "type": "ansible",
+            "request": "attach",
+            "processId": "${command:PickAnsibleProcess}"
+        },
+        {
+            "name": "Ansibug: Launch Current File",
+            "type": "ansible",
+            "request": "launch",
+            "playbook": "${file}",
+            "cwd": "${cwd}"
+        },
+
+        {
+            "name": "Ansibug: Attach to remote ansible-playbook Process",
+            "type": "ansible",
+            "request": "attach",
+            "address": "tcp://target-host:1234"
+        }
+
+    ]
+}

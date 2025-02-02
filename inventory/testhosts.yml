@@ -1,0 +1,14 @@
+---
+linuxone:
+  hosts:
+    linuxone.vdsinge.cloudns.ch:
+  vars:  
+    ansible_user: linux1
+    ansible_ssh_private_key_file: /home/vdsinge/ansiblescripts/sshkeys/vdsinge.pem
+    ansible_become_user: root
+    ansible_become_password: cisco
+vdns:
+  hosts:
+    114.114.114.114:
+  vars:
+    ansible_user: root

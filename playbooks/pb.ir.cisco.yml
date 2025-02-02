@@ -1,0 +1,49 @@
+---
+- hosts: ios_IR
+  gather_facts: false
+  become: yes
+  tasks: 
+    - name: Configure timezone
+      cisco.ios.ios_config:
+        lines: clock timezone UTC 8
+
+    # - name: Configure the ntp server configuration
+    #   cisco.ios.ios_ntp_global:
+    #     config:
+    #       servers:
+    #       - server: IR8.vd.com
+    #         version: 4
+    #         source: loopback0
+    #       update_calendar: true
+    
+    - name: Configure the DNS lookup enable
+      cisco.ios.ios_system:
+        lookup_source: loopback0
+        lookup_enabled: true
+
+    - name: Configure the name server
+      cisco.ios.ios_system:
+        name_servers:
+          - 114.114.114.114
+    
+    - name: Configure logging timestamp 
+      cisco.ios.ios_service:
+        config:
+          timestamps:
+            - msg: log
+              enable: true
+              timestamp: datetime
+              datetime_options:
+                localtime: true
+                msec: true
+                show_timezone: true
+                year: true
+            - msg: debug
+              enable: true
+              timestamp: datetime
+          pad: false
+          password_encryption: true
+    
+    - name: save Configure file
+      cisco.ios.ios_command:
+        commands: write memory

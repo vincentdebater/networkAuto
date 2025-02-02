@@ -1,0 +1,57 @@
+---
+- hosts: ios_GR
+  gather_facts: false
+  become: yes
+  tasks: 
+    # - name: Get Information for IOS-GR-Routes
+    #   cisco.ios.ios_command:
+    #     commands: show version
+    #   register: show_version_output
+
+    # - name: Print the Gathered Information
+    #   ansible.builtin.debug:
+    #     msg: "{{show_version_output}}"
+        
+    - name: Configure timezone
+      cisco.ios.ios_config:
+        lines: clock timezone UTC 8
+
+    - name: Configure the ntp server configuration
+      cisco.ios.ios_ntp_global:
+        config:
+          servers:
+          - server: 8.8.8.8
+            version: 4
+            source: GigabitEthernet0/0
+          update_calendar: true
+    
+    - name: Configure the DNS lookup enable
+      cisco.ios.ios_system:
+        lookup_source: GigabitEthernet0/0
+        lookup_enabled: true
+
+    - name: Configure the name server
+      cisco.ios.ios_system:
+        name_servers:
+          - 114.114.114.114
+    - name: Configure logging timestamp 
+      cisco.ios.ios_service:
+        config:
+          timestamps:
+            - msg: log
+              enable: true
+              timestamp: datetime
+              datetime_options:
+                localtime: true
+                msec: true
+                show_timezone: true
+                year: true
+            - msg: debug
+              enable: true
+              timestamp: datetime
+          pad: false
+          password_encryption: true
+          
+    - name: save Configure file
+      cisco.ios.ios_command:
+        commands: write memory

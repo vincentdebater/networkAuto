@@ -1,0 +1,15 @@
+---
+cisco_asa:
+  children:
+    siteB_asa:
+      hosts:
+        siteB.vd.com:
+    siteD_asa:
+      hosts:
+        siteD.vd.com:
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: cisco.asa.asa
+    ansible_user: cisco
+    ansible_ssh_pass: C1sco@132
+    ansible_become_pass: cisco132

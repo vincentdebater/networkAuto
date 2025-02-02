@@ -1,0 +1,16 @@
+---
+ios_GR:
+  children:
+    siteA_GR:
+      hosts:
+        siteA.vd.com:
+    siteF_GR:
+      hosts:
+        siteF.vd.com:
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_user: vd
+    ansible_ssh_pass: cisco123
+    ansible_become_pass: cisco123
+  

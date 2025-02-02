@@ -1,0 +1,28 @@
+---
+- hosts: cisco_asa
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Enable the DNS lookup
+      cisco.asa.asa_config:
+        lines:
+          - dns domain-lookup outside
+         
+    - name: Configure the name server
+      cisco.asa.asa_config:
+        lines:
+          - dns name-server 114.114.114.114 
+      ignore_errors: True 
+         
+    - name: Configure clock timezone 
+      cisco.asa.asa_config:
+        lines:
+          - clock timezone UTC 8    
+    - name: Config ntp server
+      cisco.asa.asa_config:
+        lines:
+          - ntp server 8.8.8.8 source outside
+
+    - name: save Configure file
+      cisco.ios.ios_command:
+        commands: write memory

@@ -1,0 +1,36 @@
+---
+ios_IR:
+  children:
+    IR1:
+      hosts: 
+        IR1.vd.com:
+    IR2:
+      hosts: 
+        IR2.vd.com:
+    IR3:
+      hosts: 
+        IR3.vd.com:
+    IR4:
+      hosts: 
+        IR4.vd.com:
+    IR5:
+      hosts: 
+        IR5.vd.com:
+    IR6:
+      hosts: 
+        IR6.vd.com:
+    IR7:
+      hosts: 
+        IR7.vd.com:
+    IR8:
+      hosts: 
+        IR8.vd.com:
+    IR9:
+      hosts: 
+        IR9.vd.com:
+  vars:
+    ansible_connection: network_cli
+    ansible_network_os: cisco.ios.ios
+    ansible_user: vd
+    ansible_ssh_pass: cisco123
+    ansible_become_pass: cisco123     
